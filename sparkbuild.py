@@ -6,7 +6,7 @@ import private
 if __name__ == "__main__":
 
 	data = {
-  		"title" : "Project beeNtouch"
+  		"title" : "ALERT: beeNtouch"
   	}
 	headers = {}  # empty dictionary
 	headers["Authorization"] = private.token
@@ -37,7 +37,7 @@ if __name__ == "__main__":
 	for user in private.users:
 		data = {
 		  "roomId" : roomID,
-		  "personEmail" : private.user["email"]
+		  "personEmail" : user["email"]
 		}
 
 		r = requests.post("https://api.ciscospark.com/v1/memberships", headers=headers, json=data)
@@ -46,7 +46,7 @@ if __name__ == "__main__":
 
 		tropoData = {
 			"token": private.tropoToken,
-	    	"numberToDial": private.user["phone"],
+	    	"numberToDial": user["phone"],
 	    	"myURL": roomURL
 	    }
 
