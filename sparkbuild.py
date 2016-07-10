@@ -2,14 +2,16 @@ import requests
 import json
 import base64
 import private
+import os
 
-if __name__ == "__main__":
+
+def beeColaborative():
 
 	data = {
   		"title" : "ALERT: beeNtouch"
   	}
 	headers = {}  # empty dictionary
-	headers["Authorization"] = private.token
+	headers["Authorization"] = "Bearer " + private.sparkToken
 	# Create a new project
 	urlString = "https://api.ciscospark.com/v1/rooms"
 	r = requests.post(urlString, headers=headers, json=data)
@@ -23,13 +25,7 @@ if __name__ == "__main__":
 
 	resp = r.json()
 
-	# for room in resp["items"]:
-	# 	print room["title"]
-	# 	if room["title"] == data["title"]:
-	# 		urlString = urlString + room["id"]
-	# 		r = requests.delete(urlString, headers=headers)
-	# 		print r.status_code
-
+	_roomID = roomID
 	roomURL = base64.b64decode(roomID)
 	roomURL = roomURL[5:]
 	print roomURL
@@ -60,3 +56,31 @@ if __name__ == "__main__":
 		print r.text
 
 	print "Done"
+
+	return roomID
+
+def postMessage(message, file, roomID):
+	headers = {}  # empty dictionary
+	headers["Authorization"] = "Bearer " + private.sparkToken
+	headers["Content-Type"] = "application/json; charset=utf-8"
+
+	data = {
+	  "roomId" : roomID
+	}
+
+	if file == True:
+		data['file'] = message
+	else:
+		data['text'] = message
+
+	print data
+
+	r = requests.post("https://api.ciscospark.com/v1/messages", headers=headers, json=data)
+
+	print r.status_code
+
+
+if __name__ == "__main__":
+	roomID=beeColaborative()
+	postMessage("http://i.imgur.com/MCfBbUo.jpg", True, roomID)
+
