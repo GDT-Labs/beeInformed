@@ -1,6 +1,6 @@
 # This docker file will create a container using the latest official Ubuntu image and install Flask
 # Created by rkiles on 7-9-2016
-# Updated to clone the beeInformed git repo
+# Updated to clone the beeInformed git repo 
 
 
 FROM ubuntu:latest
